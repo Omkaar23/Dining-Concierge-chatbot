@@ -4,15 +4,15 @@ Sends you restaurant suggestions given a set of preferences that you provide the
 ### Demo of a sample conversation 
 
 1. GreetingIntent Handled: 
-<br>
+
 ![start](Demo/1.png)
 
 2. SuggestionsIntent:
-<br>
+
 ![mid](Demo/2.png)
 
 3. ThankYouIntent:
-<br>
+
 ![end](Demo/3.png)
 
 ### List of services utilised:
