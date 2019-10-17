@@ -39,7 +39,7 @@ var lastRecievedMessage = 1;
 var ButtonClicked = false;
 
 
-var DEFAULT_TIME_DELAY = 3000;
+var DEFAULT_TIME_DELAY = 1000;
 
 // Variable for the chatlogs div
 var $chatlogs = $('.chatlogs');
@@ -212,20 +212,21 @@ function send(text) {
 	$.ajax({
 		type: "POST",
 		url: "https://pe1mvgjfag.execute-api.us-east-1.amazonaws.com/dev/chatbot",
-		//contentType: "application/json; charset=utf-8",
-		//dataType: "json",
+		// contentType: "application/json; charset=utf-8",
+		dataType: "text",
 		// headers: {
 		// 	"Authorization": "Bearer " + accessToken
 		// }
 		//,
-		//data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+		// data: JSON.stringify({ query: text, lang: "en", sessionId: "somerandomthing" }),
+		data : JSON.stringify({inputText: text}),
 
 		success: function(data) {
             console.log(data);
 		
 		// Pass the response into the method 
 		// newRecievedMessage(JSON.stringify(data.result.fulfillment.speech, undefined, 2));
-		newRecievedMessage(JSON.stringify(data.response, undefined, 2));
+		newRecievedMessage(data);
 		},
 		error: function() {
 			newRecievedMessage("Internal Server Error");
@@ -242,6 +243,8 @@ function send(text) {
 // This method tells which type of message is to be sent
 // Splits between the button messages, multi messages and single message
 function newRecievedMessage(messageText) {
+
+	var messageText = messageText.split("\\")[0];
 
 	// Variable storing the message with the "" removed
 	var removedQuotes = messageText.replace(/[""]/g,"");
